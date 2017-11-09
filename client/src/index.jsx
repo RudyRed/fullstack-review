@@ -24,6 +24,7 @@ class App extends React.Component {
       data: JSON.stringify({username: term}),
       success: (resp) => {
         console.log(resp)
+        this.componentDidMount();
       }
     });
   }
@@ -38,7 +39,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Hello')
     $.ajax({
       type: 'GET',
       url: '/repos',
