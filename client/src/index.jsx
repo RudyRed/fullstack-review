@@ -29,12 +29,6 @@ class App extends React.Component {
   }
 
   render () {
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/repos',
-    //   headers: {'Content-Type':'application/json'},
-    //   data: JSON.stringify({username: term})
-    // });
 
     return (<div>
       <h1>Github Fetcher</h1>
@@ -42,6 +36,20 @@ class App extends React.Component {
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
+
+  componentDidMount() {
+    console.log('Hello')
+    $.ajax({
+      type: 'GET',
+      url: '/repos',
+      success: (resp) => {
+        this.setState({
+          repos: resp
+        })
+      }
+    });
+  }
+
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

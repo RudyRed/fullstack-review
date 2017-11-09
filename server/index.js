@@ -20,6 +20,8 @@ app.post('/repos', function(req, res) {
   }).catch(function(err) {
     console.log(err.message);
     console.log(err.stack);
+    res.writeHead(500, { 'Content-Type': 'text/plain' });
+    res.end('There was an error accessing the DB');
   });
 
 });
@@ -27,10 +29,11 @@ app.post('/repos', function(req, res) {
 app.get('/repos', function(req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  db.reposQuery(function(err,x) {
-
+  db.reposQuery(function(err,repos) {
+    console.log(typeof repos)
+    res.writeHead(200, {'Content-Type':'application/json'})
+    res.end(JSON.stringify(repos));
   })
-
 });
 
 let port = 1128;
