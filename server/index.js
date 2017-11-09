@@ -1,7 +1,7 @@
 const express = require('express');
 let app = express();
 const Promise = require("bluebird");
-const github = require('../helpers/github.js');
+const getGithubRepos = Promise.promisify(require('../helpers/github.js').getReposByUsername);
 const db = require('../database/index.js');
 const bodyParser = require('body-parser')
 
@@ -13,7 +13,18 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  console.log(req.body)
+  // getGithubRepos(req.body.username)
+    getGithubRepos(req.body.username)
+      .then((data) => {
+        console.log(data)
+
+
+      }) .catch(function(err) {
+      console.log(err.message);
+      console.log(err.stack);
+    });
+
+
 });
 
 app.get('/repos', function (req, res) {
