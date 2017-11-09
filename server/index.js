@@ -15,6 +15,8 @@ app.post('/repos', function(req, res) {
   // save the repo information in the database
   getGithubRepos(req.body.username).then((data) => {
     db.save(data);
+    res.writeHead(201, { 'Content-Type': 'text/plain' });
+    res.end('Repos successully added to database!');
   }).catch(function(err) {
     console.log(err.message);
     console.log(err.stack);
@@ -25,8 +27,8 @@ app.post('/repos', function(req, res) {
 app.get('/repos', function(req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  db.top25(function(err,x) {
-    console.log(x)
+  db.reposQuery(function(err,x) {
+
   })
 
 });

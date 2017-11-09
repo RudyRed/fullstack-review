@@ -13,17 +13,29 @@ class App extends React.Component {
 
   }
 
+
+
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
       type: 'POST',
       url: '/repos',
       headers: {'Content-Type':'application/json'},
-      data: JSON.stringify({username: term})
+      data: JSON.stringify({username: term}),
+      success: (resp) => {
+        console.log(resp)
+      }
     });
   }
 
   render () {
+    // $.ajax({
+    //   type: 'GET',
+    //   url: '/repos',
+    //   headers: {'Content-Type':'application/json'},
+    //   data: JSON.stringify({username: term})
+    // });
+
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
