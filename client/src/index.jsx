@@ -13,23 +13,23 @@ class App extends React.Component {
 
   }
 
-
-
-  search (term) {
+  search(term) {
     console.log(`${term} was searched`);
     $.ajax({
       type: 'POST',
       url: '/repos',
-      headers: {'Content-Type':'application/json'},
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: JSON.stringify({username: term}),
       success: (resp) => {
         console.log(resp)
-        this.componentDidMount();
+        this.componentDidMount(true);
       }
     });
   }
 
-  render () {
+  render() {
 
     return (<div>
       <h1>Github Fetcher</h1>
@@ -38,18 +38,21 @@ class App extends React.Component {
     </div>)
   }
 
-  componentDidMount() {
-    $.ajax({
-      type: 'GET',
-      url: '/repos',
-      success: (resp) => {
-        this.setState({
-          repos: resp
-        })
-      }
-    });
+  componentDidMount(postMountCall) {
+    var loadReposFromDB = () => {
+      $.ajax({
+        type: 'GET',
+        url: '/repos',
+        success: (resp) => {
+          this.setState({repos: resp})
+        }
+      });
+    }
+    loadReposFromDB();
+    if (!postMountCall) {
+      setInterval(loadReposFromDB, 15000)
+    }
   }
-
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
