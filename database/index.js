@@ -9,15 +9,15 @@ let repoSchema = mongoose.Schema({
   stargazers: Number, // stargazers_count
   forks: Number, // forks
   ownerMeta: { // Within the owner obj in api data
-    username: String,
+    name: String,
     ownerUrl: String,
     avatarUrl: String
   }
 });
 
 repoSchema.methods.speak = function () {
-  var greeting = this.name && this.owner.name
-    ? `${this.owner.name}'s repo ${this.name} was successully added!`
+  var greeting = this.name && this.ownerMeta.name
+    ? `${this.ownerMeta.name}'s repo ${this.name} was successully added!`
     : "owner or repo name missing";
   console.log(greeting);
 }
@@ -34,7 +34,7 @@ let save = (apiArr) => {
       stargazers: item.stargazers_count, // stargazers_count
       forks: item.forks, // forks
       ownerMeta: { // Within the owner obj in api data
-        username: item.owner.login,
+        name: item.owner.login,
         ownerUrl: item.owner.html_url,
         avatarUrl: item.owner.avatar_url
       }

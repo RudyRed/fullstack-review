@@ -16,14 +16,14 @@ let getReposByUsername = (username, callback) => {
     }
   };
 
-    request(options, function(err, res, body) {
-      if (err) {
-        console.log(err)
-        callback(err, null);
-      }
-      let json = JSON.parse(body)
-      callback(null, json);
-    })
+  request(options, function(err, res, body) {
+    if (err) {
+      console.log(err)
+      callback(err, null);
+    }
+    let json = JSON.parse(body)
+    callback(null, json);
+  })
 
 }
 
