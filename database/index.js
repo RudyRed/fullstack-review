@@ -72,4 +72,15 @@ let save = (apiArr) => {
   })
 }
 
+let top25 = (callback) => {
+  Repo.find().sort({stargazers: -1}).limit(25)
+  .exec(callback)
+}
+
+
+// > db.repos.find().sort({stargazers: -1}).limit(25)
+
+
+
 module.exports.save = save;
+module.exports.top25 = top25;
