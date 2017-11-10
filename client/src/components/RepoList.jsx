@@ -10,7 +10,7 @@ const RepoList = (props) => (
     There are {props.repos.length} repos.
     <Search onSearch={props.search}/> {
       props.repos.slice(0,25).map(function(item, i){
-    return <RepoListItem repos={props.repos[i]} ranking={{num: i}}/>
+    return <RepoListItem repos={props.repos[i]} ranking={{num: i + 1}}/>
   })
 }
   </div>
